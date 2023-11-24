@@ -27,7 +27,7 @@ export async function GET(req, res) {
 
 // db insert
   const { MongoClient } = require('mongodb');
-  const url = 'mongodb://root:example@localhost:27017/';
+  const url = "mongodb+srv:b00146242:<password>@cluster0.yxxpyma.mongodb.net/?retryWrites=true&w=majority";
   const client = new MongoClient(url);
   const dbName = 'app'; // database name
   await client.connect();

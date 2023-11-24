@@ -29,7 +29,7 @@ export default function Page() {
 
 
 useEffect(() => {
-fetch('http://localhost:3000/api/getproducts')
+fetch('api/getProducts')
 .then((res) => res.json())
 .then((data) => {
 setData(data)
@@ -37,7 +37,7 @@ setData(data)
 
 
 
-    fetch('http://localhost:3000/api/getWeather')
+    fetch('api/getWeather')
         .then((res) => res.json())
         .then((weather) => {
             setWeatherData(weather)
