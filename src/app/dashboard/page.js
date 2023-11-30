@@ -20,7 +20,7 @@ import { useState, useEffect } from 'react'
 export default function Page() {
     function putInCart(pname){
         console.log("putting in cart: " + pname)
-        fetch("http://localhost:3000/api/putinCart?pname="+pname);
+        fetch("api/putinCart?pname="+pname);
         }
 
     const [data, setData] = useState(null)
@@ -29,7 +29,7 @@ export default function Page() {
 
 
 useEffect(() => {
-fetch('api/getProducts')
+fetch('api/getproducts')
 .then((res) => res.json())
 .then((data) => {
 setData(data)
