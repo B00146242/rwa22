@@ -20,12 +20,12 @@ import { useState, useEffect } from 'react'
 export default function Page() {
     function putInCart(pname){
         console.log("putting in cart: " + pname)
-        fetch("http://localhost:3000/api/putinCart?pname="+pname);
+        fetch("api/putinCart?pname="+pname);
     }
 
     const [data, setData] = useState(null)
     useEffect(() => {
-        fetch('http://localhost:3000/api/getproducts')
+        fetch('api/getproducts')
             .then((res) => res.json())
             .then((data) => {
                 setData(data)
