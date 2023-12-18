@@ -18,6 +18,14 @@ import { useState, useEffect } from 'react'
 
 
 export default function Page() {
+    fetch('api/authCheck')
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data.status);
+            if(data.status!='true'){
+                window.location="/"
+            }
+        })
     function putInCart(pname){
         console.log("putting in cart: " + pname)
         fetch("api/putinCart?pname="+pname);

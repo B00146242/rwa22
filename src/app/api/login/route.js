@@ -1,4 +1,8 @@
+
+import { cookies } from 'next/headers'
+
 export async function GET(req, res) {
+
   // Make a note we are on
   // the api. This goes to the console.
   console.log("in the api page")
@@ -9,6 +13,7 @@ export async function GET(req, res) {
   const pass = searchParams.get('pass')
   console.log(email);
   console.log(pass);
+
   // =================================================
   const { MongoClient } = require('mongodb');
   const url = "mongodb+srv://b00146242:5fzy499NRNoDtGrN@cluster0.yxxpyma.mongodb.net/?retryWrites=true&w=majority";
@@ -21,15 +26,24 @@ export async function GET(req, res) {
   const findResult = await collection.find({}).toArray();
   console.log('Found documents =>', findResult);
   let valid = false
-  if(findResult.length >0 ){
-  valid = true;
-  console.log("login valid")
+  const bcrypt = require('bcrypt');
+  let hashResult = bcrypt.compareSync(pass, findResult[0].pass); // true
+  console.log("checking " + findResult[0].pass);
+  console.log("Hash Comparison Result " + hashResult);
+
+  if(findResult.length >0 && hashResult == true){
+    valid = true;
+    console.log("login valid")
+// save a little cookie to say we are authenticated
+    console.log("Saving username and auth status")
+    cookies().set('auth', true);
+    cookies().set('username',email)
   } else {
-  valid = false;
-  console.log("login invalid")
+    valid = false;
+    console.log("login invalid")
   }
-  //==========================================================
-  // at the end of the process we need to send something back.
   return Response.json({ "data":"" + valid + ""})
-  }
-  
+}
+
+//==========================================================
+  // at the end of the process we need to send something back.
